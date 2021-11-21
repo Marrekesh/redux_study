@@ -22,8 +22,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 heroesLoadingStatus: 'error'
             }
+        case 'FILTERS_FETCHING':
+            return {
+                ...state,
+                filters: action.payload
+            }
         case 'HEROES_ADD':
-            console.log(initialState.heroes)
             let newHeroList = [...state.heroes, action.payload]
             return {
                 ...state,

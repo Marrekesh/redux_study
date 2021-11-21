@@ -1,4 +1,4 @@
-import {  useDispatch } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { addHeroes } from "../../actions";
 import { v4 as uuidv4 } from "uuid";
@@ -19,6 +19,7 @@ const HeroesAddForm = () => {
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
     const {request} = useHttp();
+    const { filters } = useSelector(state => state)
     const dispatch = useDispatch();
 
     const addHendlerHero = (e) => {
@@ -42,6 +43,18 @@ const HeroesAddForm = () => {
         setElement('')
     }
 
+    const renderFilters = (filters) => {
+        if (filters && filters.length > 0 ) {
+
+            return filters.map(({name, label}) => {
+                if (name === 'all')  return;
+                return <option key={name} value={name}>{label}</option>
+            })
+
+        }
+
+    }
+    
     return (
         <form onSubmit={addHendlerHero} className="border p-4 shadow-lg rounded">
             <div className="mb-3">
@@ -83,10 +96,7 @@ const HeroesAddForm = () => {
                     onChange={(e) => setElement(e.target.value)}
                     >
                     <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {renderFilters(filters)}
                 </select>
             </div>
 

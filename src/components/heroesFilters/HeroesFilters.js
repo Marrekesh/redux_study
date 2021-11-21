@@ -1,3 +1,8 @@
+import {  useDispatch, useSelector } from "react-redux";
+import { filtersFetching } from "../../actions";
+import { v4 as uuidv4 } from "uuid";
+import { useHttp } from "../../hooks/http.hook";
+import { useEffect } from "react";
 
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -7,6 +12,18 @@
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
+    
+    const {request} = useHttp()
+    const dispatch = useDispatch()
+    const {filters} = useSelector(state => state)
+
+    useEffect(() => {
+        request('http://localhost:3001/filters')
+            .then(data => dispatch(filtersFetching(data)))
+            .then(error => console.log(error))
+    },[])
+
+
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
