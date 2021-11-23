@@ -11,42 +11,6 @@
       "name": "Неизвестный герой",
       "description": "Скрывающийся в тени",
       "element": "wind"
-    },
-    {
-      "id": 3,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
-    },
-    {
-      "id": "1c9d8591-e1a8-4c23-9b48-ec6c6634d681",
-      "name": "Дмитрий ",
-      "description": "letatb",
-      "element": "wind"
-    },
-    {
-      "id": "9b11f8b9-402a-4904-9efe-906aa2189b82",
-      "name": "asd",
-      "description": "asd",
-      "element": "earth"
-    },
-    {
-      "id": "8e56003d-c253-4030-a35a-622e589de33e",
-      "name": "asd",
-      "description": "asd",
-      "element": "fire"
-    },
-    {
-      "id": "7488d4ef-1a7d-490d-8ce6-bcbc20b22929",
-      "name": "Дмитрий ",
-      "description": "begatb",
-      "element": "water"
-    },
-    {
-      "id": "11651143-9af4-416e-8bd9-5a8f9523653b",
-      "name": "vasya",
-      "description": "nichego",
-      "element": "water"
     }
   ],
   "filters": [

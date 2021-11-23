@@ -1,8 +1,9 @@
 import {  useDispatch, useSelector } from "react-redux";
-import { filtersFetching } from "../../actions";
-import { v4 as uuidv4 } from "uuid";
+import { filtersFetched, changeActiveFilter, filtersFetching } from "../../actions";
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect } from "react";
+import classNames from "classnames";
+import Spinner from '../spinner/Spinner'
 
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -15,25 +16,51 @@ const HeroesFilters = () => {
     
     const {request} = useHttp()
     const dispatch = useDispatch()
-    const {filters} = useSelector(state => state)
+    const {filters, activeFilter, filtersLoadingStatus} = useSelector(state => state)
 
     useEffect(() => {
+        dispatch(filtersFetching());
         request('http://localhost:3001/filters')
-            .then(data => dispatch(filtersFetching(data)))
+            .then(data => dispatch(filtersFetched(data)))
             .then(error => console.log(error))
     },[])
 
+    if (filtersLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (filtersLoadingStatus === "error") {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
+
+    const createFilters = (filters) => {
+
+        if (filters.length === 0) {
+            return <h5 className="text-center mt-5" > Фильтры не найдены</h5>
+        }
+
+        return filters.map(({name, label, className}) => {
+            
+            const btnClass = classNames('btn', className, {
+                'active': name === activeFilter
+            })
+
+
+            return <button 
+            key={name} 
+            id={name} 
+            className={btnClass}
+            onClick={() => dispatch(changeActiveFilter(name))}
+            >
+            {label}</button>
+        })
+
+    }
 
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
                 <div className="btn-group">
-                    <button className="btn btn-outline-dark active">Все</button>
-                    <button className="btn btn-danger">Огонь</button>
-                    <button className="btn btn-primary">Вода</button>
-                    <button className="btn btn-success">Ветер</button>
-                    <button className="btn btn-secondary">Земля</button>
+                    {createFilters(filters)}
                 </div>
             </div>
         </div>
