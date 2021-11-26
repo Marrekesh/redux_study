@@ -1,6 +1,6 @@
 import {  useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { addHeroes } from "../../actions";
+import { addHeroes } from "../heroesList/heroesSlice";
 import { v4 as uuidv4 } from "uuid";
 import { useHttp } from "../../hooks/http.hook";
 // Задача для этого компонента:
